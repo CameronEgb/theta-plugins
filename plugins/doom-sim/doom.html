@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DOOM (1993) - id Software</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link href="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.css" rel="stylesheet">
+  <script src="https://js-dos.com/v7/build/releases/latest/js-dos/js-dos.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+    }
+    #jsdos {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000;
+    }
+    /* Suppress all js-dos chrome, overlays, tips, sidebars, buttons, mobile pads */
+    .sidebar,
+    .emulator-options,
+    .emulator-control,
+    .jsdos-controls,
+    .notyf,
+    [class*="sidebar"],
+    [class*="rounded-br-md"],
+    [class*="z-50"],
+    [class*="opacity-80"],
+    .bg-gray-300 {
+      display: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+    canvas {
+      cursor: crosshair;
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="jsdos"></div>
+  <script>
+    try {
+      localStorage.setItem("ui.tipsV2", "false");
+      localStorage.setItem("ui.autolockTipsV2", "false");
+      localStorage.setItem("autolock", "true");
+    } catch (e) {}
+
+    let activeCi = null;
+    let isLocked = false;
+    let jsDosHandled = false;
+
+    document.addEventListener("pointerlockchange", () => {
+      isLocked = !!document.pointerLockElement;
+    });
+
+    function lockMouse() {
+      const target = document.querySelector(".emulator-mouse-overlay") || document.querySelector("canvas") || document.getElementById("jsdos");
+      if (target && document.pointerLockElement !== target) {
+        const req = target.requestPointerLock || target.mozRequestPointerLock || target.webkitRequestPointerLock;
+        if (req) {
+          req.call(target);
+        }
+      }
+    }
+
+    window.addEventListener("mousedown", (e) => {
+      if (!isLocked) {
+        lockMouse();
+      } else if (activeCi && typeof activeCi.sendMouseButton === "function") {
+        activeCi.sendMouseButton(e.button, true);
+      }
+    });
+
+    window.addEventListener("mouseup", (e) => {
+      if (activeCi && typeof activeCi.sendMouseButton === "function") {
+        activeCi.sendMouseButton(e.button, false);
+      }
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isLocked || !activeCi) return;
+      if (jsDosHandled) {
+        jsDosHandled = false;
+        return;
+      }
+      const dx = (e.movementX || e.mozMovementX || e.webkitMovementX || 0) * 2;
+      const dy = (e.movementY || e.mozMovementY || e.webkitMovementY || 0) * 2;
+      if (dx !== 0 || dy !== 0) {
+        if (typeof activeCi.sendMouseRelativeMotion === "function") {
+          activeCi.sendMouseRelativeMotion(dx, dy);
+        }
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && document.pointerLockElement) {
+        document.exitPointerLock();
+      }
+    });
+
+    function startDoom() {
+      if (typeof emulators !== "undefined" && typeof Dos !== "undefined") {
+        emulators.pathPrefix = "https://js-dos.com/v7/build/releases/latest/js-dos/";
+        const dos = Dos(document.getElementById("jsdos"), {
+          style: "none",
+          autolock: true,
+          clickToStart: false,
+        });
+        dos.run("https://cdn.dos.zone/custom/dos/doom.jsdos").then(ci => {
+          activeCi = ci;
+          const origSend = ci.sendMouseRelativeMotion ? ci.sendMouseRelativeMotion.bind(ci) : null;
+          if (origSend) {
+            ci.sendMouseRelativeMotion = function(x, y) {
+              jsDosHandled = true;
+              return origSend(x, y);
+            };
+          }
+          if (dos && typeof dos.setAutolock === "function") {
+            dos.setAutolock(true);
+          }
+        });
+      } else {
+        setTimeout(startDoom, 30);
+      }
+    }
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      startDoom();
+    } else {
+      window.addEventListener("DOMContentLoaded", startDoom);
+    }
+  </script>
+</body>
+</html>

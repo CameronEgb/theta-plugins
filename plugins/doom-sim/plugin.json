@@ -1,0 +1,10 @@
+{
+  "id": "doom",
+  "name": "DOOM",
+  "version": "0.1.0",
+  "description": "Authentic 1993 id Software DOOM engine running directly inside Theta IDE.",
+  "author": "Cameron Egbert",
+  "default_enabled": false,
+  "icon": "doom",
+  "entry_point": "DoomPlugin"
+}
