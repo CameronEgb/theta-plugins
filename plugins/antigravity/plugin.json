@@ -1,10 +1,13 @@
 {
   "id": "antigravity",
   "name": "Antigravity Agent",
-  "version": "0.1.4",
-  "description": "Integrated Google Antigravity Agent for pair programming and codebase assistance.",
+  "version": "0.1.5",
+  "description": "Integrated Google Antigravity Agent for pair programming and codebase assistance with full-panel and sidepane modes.",
   "author": "Antigravity Team",
   "default_enabled": true,
   "icon": "antigravity",
-  "entry_point": "AntigravityPlugin"
+  "entry_point": "AntigravityPlugin",
+  "extra": {
+    "has_settings": true
+  }
 }

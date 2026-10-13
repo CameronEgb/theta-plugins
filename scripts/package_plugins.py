@@ -12,7 +12,7 @@ DIST = ROOT / "dist"
 COMPONENTS = [
     {"id": "obsidian", "name": "obsidian-0.1.0.zip", "src": ROOT / "plugins" / "obsidian"},
     {"id": "doom-sim", "name": "doom_sim-0.1.0.zip", "src": ROOT / "plugins" / "doom-sim"},
-    {"id": "antigravity", "name": "antigravity-0.1.4.zip", "src": ROOT / "plugins" / "antigravity"},
+    {"id": "antigravity", "name": "antigravity-0.1.5.zip", "src": ROOT / "plugins" / "antigravity"},
     {"id": "doom-env", "name": "doom_env-1.0.0.zip", "src": ROOT / "envs" / "doom-env"},
 ]
 
@@ -21,7 +21,12 @@ def package_component(src_dir: Path, output_zip: Path) -> str:
     """Compress directory into zip archive and return hex SHA-256."""
     with ZipFile(output_zip, "w", compression=ZIP_DEFLATED) as zf:
         for file_path in sorted(src_dir.rglob("*")):
-            if file_path.is_file() and not file_path.name.startswith(".") and "__pycache__" not in file_path.parts:
+            if (
+                file_path.is_file()
+                and not file_path.name.startswith(".")
+                and "__pycache__" not in file_path.parts
+                and not file_path.name.startswith("test_")
+            ):
                 arcname = file_path.relative_to(src_dir)
                 zf.write(file_path, arcname=arcname)
 
