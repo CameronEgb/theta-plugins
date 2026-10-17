@@ -20,17 +20,25 @@ COMPONENTS = [
     {"id": "doom-env", "name": "doom_env-1.0.0.zip", "src": ROOT / "envs" / "doom-env", "kind": "env", "paradigms": ["online_rl"]},
     {"id": "gym_classic_control", "name": "gym_classic_control-1.0.0.zip", "src": ROOT / "envs" / "gym_classic_control", "kind": "env", "paradigms": ["online_rl"]},
     {"id": "atari-env", "name": "atari_env-1.0.0.zip", "src": ROOT / "envs" / "atari-env", "kind": "env", "paradigms": ["online_rl"]},
+    {"id": "mnist", "name": "mnist-1.0.0.zip", "src": ROOT / "envs" / "mnist", "kind": "env", "paradigms": ["supervised", "unsupervised", "online_rl"]},
     # Models
     {"id": "dnn", "name": "dnn-1.0.0.zip", "src": ROOT / "models" / "dnn", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "dueling_resnet", "name": "dueling_resnet-1.0.0.zip", "src": ROOT / "models" / "dueling_resnet", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "nature_cnn", "name": "nature_cnn-1.0.0.zip", "src": ROOT / "models" / "nature_cnn", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "cew", "name": "cew-1.0.0.zip", "src": ROOT / "models" / "cew", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "blendrl", "name": "blendrl-1.0.0.zip", "src": ROOT / "models" / "blendrl", "kind": "model", "paradigms": ["online_rl", "offline_rl"]},
+    {"id": "mlp", "name": "mlp-1.0.0.zip", "src": ROOT / "models" / "mlp", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "transformer", "name": "transformer-1.0.0.zip", "src": ROOT / "models" / "transformer", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "lstm", "name": "lstm-1.0.0.zip", "src": ROOT / "models" / "lstm", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "autoencoder", "name": "autoencoder-1.0.0.zip", "src": ROOT / "models" / "autoencoder", "kind": "model", "paradigms": ["unsupervised", "supervised"]},
+    {"id": "nsfr", "name": "nsfr-1.0.0.zip", "src": ROOT / "models" / "nsfr", "kind": "model", "paradigms": ["online_rl", "offline_rl"]},
+    {"id": "neumann", "name": "neumann-1.0.0.zip", "src": ROOT / "models" / "neumann", "kind": "model", "paradigms": ["online_rl", "offline_rl"]},
     # Methods (Real Benchmark Suites)
     {"id": "sb3-suite", "name": "sb3_suite-1.0.0.zip", "src": ROOT / "methods" / "sb3", "kind": "method", "paradigms": ["online_rl"]},
     {"id": "d3rlpy-suite", "name": "d3rlpy_suite-1.0.0.zip", "src": ROOT / "methods" / "d3rlpy", "kind": "method", "paradigms": ["offline_rl"]},
     # Suites / Meta-Packages
-    {"id": "standard_rl_suite", "name": "standard_rl_suite-1.0.0.zip", "src": ROOT / "suites" / "standard_rl_suite", "kind": "suite", "paradigms": ["online_rl", "offline_rl"]},
     {"id": "basic_suite", "name": "basic_suite-1.0.0.zip", "src": ROOT / "suites" / "basic_suite", "kind": "suite", "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "dl_basics_suite", "name": "dl_basics_suite-1.0.0.zip", "src": ROOT / "suites" / "dl_basics_suite", "kind": "suite", "paradigms": ["supervised", "unsupervised", "online_rl", "offline_rl"]},
 ]
 
 
@@ -95,6 +103,15 @@ def update_registry_entry(comp: dict, sha256: str, zip_name: str):
         entry["repository"] = comp_meta.get("repository", "https://github.com/CameronEgb/theta-plugins")
     if "license" not in entry:
         entry["license"] = comp_meta.get("license", "MIT")
+
+    if "name" in comp_meta:
+        entry["name"] = comp_meta["name"]
+    if "description" in comp_meta:
+        entry["description"] = comp_meta["description"]
+    if "config_path" in comp_meta:
+        entry["config_path"] = comp_meta["config_path"]
+    if "config_paths" in comp_meta:
+        entry["config_paths"] = comp_meta["config_paths"]
 
     # Record supported paradigms
     paradigms = comp_meta.get("paradigms") or comp.get("paradigms")

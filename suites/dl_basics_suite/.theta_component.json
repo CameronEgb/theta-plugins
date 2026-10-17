@@ -1,0 +1,21 @@
+{
+  "id": "dl_basics_suite",
+  "name": "Deep Learning Basics Suite",
+  "kind": "suite",
+  "version": "1.0.0",
+  "description": "Foundational deep learning architectures for Theta-IDE: Multi-Layer Perceptrons (MLP), Transformers, LSTMs, and Dense/Sequence Autoencoders.",
+  "author": {
+    "name": "Theta-IDE Team"
+  },
+  "dependencies": {
+    "components": [
+      "mlp",
+      "transformer",
+      "lstm",
+      "autoencoder"
+    ]
+  },
+  "compatibility": {
+    "theta": ">=2.0.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "mnist",
+  "name": "MNIST Handwritten Digits",
+  "kind": "env",
+  "version": "1.0.0",
+  "description": "Handwritten digits classification benchmark (8x8 mini-MNIST and 28x28 MNIST) supporting supervised, unsupervised, and RL environments.",
+  "author": {
+    "name": "Theta-IDE Team"
+  },
+  "tags": [
+    "env",
+    "mnist",
+    "digits",
+    "vision",
+    "classification",
+    "benchmark"
+  ],
+  "paradigms": [
+    "supervised",
+    "unsupervised",
+    "online_rl"
+  ],
+  "target_path": "in/envs/mnist",
+  "config_path": "in/config/env/mnist.yaml",
+  "config_paths": [
+    "in/config/env/mnist.yaml",
+    "in/config/env/digits.yaml"
+  ],
+  "dependencies": {
+    "pip": [
+      "scikit-learn",
+      "numpy",
+      "torch"
+    ]
+  }
+}

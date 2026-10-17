@@ -1,0 +1,29 @@
+{
+  "id": "blendrl",
+  "name": "BlendRL Neural-Symbolic Policy",
+  "kind": "model",
+  "version": "1.0.0",
+  "description": "Modular actor-critic architecture combining neural networks and symbolic reasoners with adaptive blending.",
+  "author": {
+    "name": "NeSyRL Contributors",
+    "github": "CameronEgb"
+  },
+  "repository": "https://github.com/CameronEgb/Offline-BlendRL",
+  "license": "MIT",
+  "tags": [
+    "blendrl",
+    "hybrid",
+    "neural-symbolic",
+    "nsfr",
+    "logic",
+    "rl"
+  ],
+  "target_path": "src/usr/models/blendrl",
+  "config_path": "in/config/model/blendrl.yaml",
+  "config_paths": [
+    "in/config/model/blendrl.yaml"
+  ],
+  "compatibility": {
+    "theta": ">=2.0.0"
+  }
+}

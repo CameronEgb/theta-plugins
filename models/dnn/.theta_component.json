@@ -8,7 +8,10 @@
     "name": "Theta-IDE Team"
   },
   "target_path": "src/usr/models/dnn",
-  "config_path": "in/config/model/dnn.yaml",
+  "config_path": "in/config/model/basics/dnn.yaml",
+  "config_paths": [
+    "in/config/model/basics/dnn.yaml"
+  ],
   "compatibility": {
     "theta": ">=2.0.0"
   }

@@ -8,7 +8,10 @@
     "name": "Theta-IDE Team"
   },
   "target_path": "src/usr/models/nature_cnn",
-  "config_path": "in/config/model/nature_cnn.yaml",
+  "config_path": "in/config/model/basics/nature_cnn.yaml",
+  "config_paths": [
+    "in/config/model/basics/nature_cnn.yaml"
+  ],
   "compatibility": {
     "theta": ">=2.0.0"
   }

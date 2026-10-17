@@ -1,0 +1,21 @@
+{
+  "id": "mlp",
+  "name": "Multi-Layer Perceptron (MLP)",
+  "kind": "model",
+  "version": "1.0.0",
+  "description": "Standard Multi-Layer Perceptron neural network architectures for classification, value estimation, and policy modeling.",
+  "author": {
+    "name": "Theta-IDE Team"
+  },
+  "paradigms": [
+    "online_rl",
+    "offline_rl",
+    "supervised"
+  ],
+  "target_path": "src/usr/models/mlp",
+  "config_path": "in/config/model/basics/mlp.yaml",
+  "config_paths": [
+    "in/config/model/basics/mlp.yaml",
+    "in/config/model/basics/mlp_classifier.yaml"
+  ]
+}

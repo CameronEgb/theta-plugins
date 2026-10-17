@@ -8,7 +8,10 @@
     "name": "Theta-IDE Team"
   },
   "target_path": "src/usr/models/dueling_resnet",
-  "config_path": "in/config/model/dueling_resnet.yaml",
+  "config_path": "in/config/model/basics/dueling_resnet.yaml",
+  "config_paths": [
+    "in/config/model/basics/dueling_resnet.yaml"
+  ],
   "compatibility": {
     "theta": ">=2.0.0"
   }
