@@ -17,20 +17,20 @@ COMPONENTS = [
     {"id": "doom-sim", "name": "doom_sim-0.1.0.zip", "src": ROOT / "plugins" / "doom-sim", "kind": "plugin"},
     {"id": "antigravity", "name": "antigravity-0.1.5.zip", "src": ROOT / "plugins" / "antigravity", "kind": "plugin"},
     # Environments
-    {"id": "doom-env", "name": "doom_env-1.0.0.zip", "src": ROOT / "envs" / "doom-env", "kind": "env"},
-    {"id": "gym_classic_control", "name": "gym_classic_control-1.0.0.zip", "src": ROOT / "envs" / "gym_classic_control", "kind": "env"},
-    {"id": "atari-env", "name": "atari_env-1.0.0.zip", "src": ROOT / "envs" / "atari-env", "kind": "env"},
+    {"id": "doom-env", "name": "doom_env-1.0.0.zip", "src": ROOT / "envs" / "doom-env", "kind": "env", "paradigms": ["online_rl"]},
+    {"id": "gym_classic_control", "name": "gym_classic_control-1.0.0.zip", "src": ROOT / "envs" / "gym_classic_control", "kind": "env", "paradigms": ["online_rl"]},
+    {"id": "atari-env", "name": "atari_env-1.0.0.zip", "src": ROOT / "envs" / "atari-env", "kind": "env", "paradigms": ["online_rl"]},
     # Models
-    {"id": "dnn", "name": "dnn-1.0.0.zip", "src": ROOT / "models" / "dnn", "kind": "model"},
-    {"id": "dueling_resnet", "name": "dueling_resnet-1.0.0.zip", "src": ROOT / "models" / "dueling_resnet", "kind": "model"},
-    {"id": "nature_cnn", "name": "nature_cnn-1.0.0.zip", "src": ROOT / "models" / "nature_cnn", "kind": "model"},
-    {"id": "cew", "name": "cew-1.0.0.zip", "src": ROOT / "models" / "cew", "kind": "model"},
+    {"id": "dnn", "name": "dnn-1.0.0.zip", "src": ROOT / "models" / "dnn", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "dueling_resnet", "name": "dueling_resnet-1.0.0.zip", "src": ROOT / "models" / "dueling_resnet", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "nature_cnn", "name": "nature_cnn-1.0.0.zip", "src": ROOT / "models" / "nature_cnn", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "cew", "name": "cew-1.0.0.zip", "src": ROOT / "models" / "cew", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     # Methods (Real Benchmark Suites)
-    {"id": "sb3-suite", "name": "sb3_suite-1.0.0.zip", "src": ROOT / "methods" / "sb3", "kind": "method"},
-    {"id": "d3rlpy-suite", "name": "d3rlpy_suite-1.0.0.zip", "src": ROOT / "methods" / "d3rlpy", "kind": "method"},
+    {"id": "sb3-suite", "name": "sb3_suite-1.0.0.zip", "src": ROOT / "methods" / "sb3", "kind": "method", "paradigms": ["online_rl"]},
+    {"id": "d3rlpy-suite", "name": "d3rlpy_suite-1.0.0.zip", "src": ROOT / "methods" / "d3rlpy", "kind": "method", "paradigms": ["offline_rl"]},
     # Suites / Meta-Packages
-    {"id": "standard_rl_suite", "name": "standard_rl_suite-1.0.0.zip", "src": ROOT / "suites" / "standard_rl_suite", "kind": "suite"},
-    {"id": "basic_suite", "name": "basic_suite-1.0.0.zip", "src": ROOT / "suites" / "basic_suite", "kind": "suite"},
+    {"id": "standard_rl_suite", "name": "standard_rl_suite-1.0.0.zip", "src": ROOT / "suites" / "standard_rl_suite", "kind": "suite", "paradigms": ["online_rl", "offline_rl"]},
+    {"id": "basic_suite", "name": "basic_suite-1.0.0.zip", "src": ROOT / "suites" / "basic_suite", "kind": "suite", "paradigms": ["online_rl", "offline_rl", "supervised"]},
 ]
 
 
@@ -95,6 +95,11 @@ def update_registry_entry(comp: dict, sha256: str, zip_name: str):
         entry["repository"] = comp_meta.get("repository", "https://github.com/CameronEgb/theta-plugins")
     if "license" not in entry:
         entry["license"] = comp_meta.get("license", "MIT")
+
+    # Record supported paradigms
+    paradigms = comp_meta.get("paradigms") or comp.get("paradigms")
+    if paradigms:
+        entry["paradigms"] = paradigms
 
     entry["version"] = ver
     if "releases" not in entry:
