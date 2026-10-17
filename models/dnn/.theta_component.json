@@ -1,0 +1,15 @@
+{
+  "id": "dnn",
+  "name": "Deep Neural Network (MLP)",
+  "kind": "model",
+  "version": "1.0.0",
+  "description": "Standard Multi-Layer Perceptron (DNN) wrapping PyTorch Linear, LayerNorm, and Dueling Q-value heads.",
+  "author": {
+    "name": "Theta-IDE Team"
+  },
+  "target_path": "src/usr/models/dnn",
+  "config_path": "in/config/model/dnn.yaml",
+  "compatibility": {
+    "theta": ">=2.0.0"
+  }
+}

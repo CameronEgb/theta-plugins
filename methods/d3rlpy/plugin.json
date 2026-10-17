@@ -1,0 +1,12 @@
+{
+  "id": "d3rlpy-suite",
+  "name": "d3rlpy Offline RL Suite",
+  "version": "1.0.0",
+  "kind": "method",
+  "description": "Standard offline reinforcement learning algorithms (CQL, IQL, TD3+BC, BC) powered by d3rlpy.",
+  "author": "Takuma Seno & d3rlpy Contributors",
+  "tags": ["offline-rl", "cql", "iql", "td3-bc", "bc", "d3rlpy", "baselines"],
+  "dependencies": {
+    "pip": ["d3rlpy", "gymnasium"]
+  }
+}

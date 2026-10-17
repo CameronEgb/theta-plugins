@@ -1,0 +1,15 @@
+{
+  "id": "nature_cnn",
+  "name": "Nature CNN",
+  "kind": "model",
+  "version": "1.0.0",
+  "description": "Canonical 3-stage convolutional neural network architecture (Mnih et al., 2015) for visual reinforcement learning.",
+  "author": {
+    "name": "Theta-IDE Team"
+  },
+  "target_path": "src/usr/models/nature_cnn",
+  "config_path": "in/config/model/nature_cnn.yaml",
+  "compatibility": {
+    "theta": ">=2.0.0"
+  }
+}

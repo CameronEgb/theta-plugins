@@ -1,0 +1,9 @@
+name: d3rlpy/iql
+engine: d3rlpy
+algorithm: IQL
+learning_rate: 3e-4
+batch_size: 256
+n_steps: 50000
+expectile: 0.7
+weight_temp: 3.0
+gamma: 0.99

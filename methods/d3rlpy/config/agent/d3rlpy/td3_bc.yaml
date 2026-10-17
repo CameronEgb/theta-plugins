@@ -1,0 +1,8 @@
+name: d3rlpy/td3_bc
+engine: d3rlpy
+algorithm: TD3_BC
+learning_rate: 3e-4
+batch_size: 256
+n_steps: 50000
+alpha: 2.5
+gamma: 0.99

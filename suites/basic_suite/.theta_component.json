@@ -1,0 +1,24 @@
+{
+  "id": "basic_suite",
+  "name": "Basic Benchmark Suite",
+  "kind": "suite",
+  "version": "1.0.0",
+  "description": "Basic reinforcement learning benchmark suite for Theta-IDE: Stable-Baselines3, d3rlpy offline baselines, Atari 2600 (ALE), Gymnasium classic control, and standard deep neural network architectures.",
+  "author": {
+    "name": "Theta-IDE Team"
+  },
+  "dependencies": {
+    "components": [
+      "sb3-suite",
+      "d3rlpy-suite",
+      "atari-env",
+      "gym_classic_control",
+      "dnn",
+      "nature_cnn",
+      "dueling_resnet"
+    ]
+  },
+  "compatibility": {
+    "theta": ">=2.0.0"
+  }
+}
