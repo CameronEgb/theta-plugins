@@ -14,5 +14,18 @@
   ],
   "compatibility": {
     "theta": ">=2.0.0"
+  },
+  "suite": "thetalib",
+  "hidden": true,
+  "parameter_schema": {
+    "type": "object",
+    "properties": {
+      "in_channels": {
+        "type": "integer"
+      },
+      "features_dim": {
+        "type": "integer"
+      }
+    }
   }
 }

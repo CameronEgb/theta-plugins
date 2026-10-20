@@ -25,5 +25,59 @@
   ],
   "compatibility": {
     "theta": ">=2.0.0"
+  },
+  "parameter_schema": {
+    "type": "object",
+    "properties": {
+      "actor_mode": {
+        "type": "string",
+        "enum": [
+          "hybrid",
+          "logic",
+          "neural"
+        ]
+      },
+      "blender": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "logic",
+              "neural"
+            ]
+          },
+          "blend_function": {
+            "type": "string",
+            "enum": [
+              "softmax",
+              "gumbel_softmax"
+            ]
+          }
+        }
+      },
+      "blend_q_values": {
+        "type": "boolean"
+      },
+      "blend_ent_coef": {
+        "type": "number"
+      },
+      "logic_lr": {
+        "type": "number"
+      },
+      "blender_lr": {
+        "type": "number"
+      },
+      "neural": {
+        "type": "string",
+        "x-theta-domain": "model",
+        "description": "Neural policy and critic module."
+      },
+      "symbolic": {
+        "type": "string",
+        "x-theta-domain": "model",
+        "description": "Symbolic reasoning module."
+      }
+    }
   }
 }

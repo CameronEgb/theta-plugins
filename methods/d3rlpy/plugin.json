@@ -5,8 +5,156 @@
   "kind": "method",
   "description": "Standard offline reinforcement learning algorithms (CQL, IQL, TD3+BC, BC) powered by d3rlpy.",
   "author": "Takuma Seno & d3rlpy Contributors",
-  "tags": ["offline-rl", "cql", "iql", "td3-bc", "bc", "d3rlpy", "baselines"],
+  "tags": [
+    "offline-rl",
+    "cql",
+    "iql",
+    "td3-bc",
+    "bc",
+    "d3rlpy",
+    "baselines"
+  ],
   "dependencies": {
-    "pip": ["d3rlpy", "gymnasium"]
-  }
+    "pip": [
+      "d3rlpy",
+      "gymnasium"
+    ]
+  },
+  "parameter_schema": {
+    "type": "object",
+    "properties": {},
+    "x-theta-config-schemas": {
+      "in/config/agent/d3rlpy/bc.yaml": {
+        "type": "object",
+        "properties": {
+          "engine": {
+            "type": "string",
+            "enum": [
+              "sb3",
+              "d3rlpy",
+              "cleanrl",
+              "custom"
+            ]
+          },
+          "algorithm": {
+            "type": "string"
+          },
+          "learning_rate": {
+            "type": "string"
+          },
+          "batch_size": {
+            "type": "integer"
+          },
+          "n_steps": {
+            "type": "integer"
+          }
+        }
+      },
+      "in/config/agent/d3rlpy/cql.yaml": {
+        "type": "object",
+        "properties": {
+          "engine": {
+            "type": "string",
+            "enum": [
+              "sb3",
+              "d3rlpy",
+              "cleanrl",
+              "custom"
+            ]
+          },
+          "algorithm": {
+            "type": "string"
+          },
+          "learning_rate": {
+            "type": "string"
+          },
+          "batch_size": {
+            "type": "integer"
+          },
+          "n_steps": {
+            "type": "integer"
+          },
+          "cql_alpha": {
+            "type": "number"
+          },
+          "gamma": {
+            "type": "number"
+          }
+        }
+      },
+      "in/config/agent/d3rlpy/iql.yaml": {
+        "type": "object",
+        "properties": {
+          "engine": {
+            "type": "string",
+            "enum": [
+              "sb3",
+              "d3rlpy",
+              "cleanrl",
+              "custom"
+            ]
+          },
+          "algorithm": {
+            "type": "string"
+          },
+          "learning_rate": {
+            "type": "string"
+          },
+          "batch_size": {
+            "type": "integer"
+          },
+          "n_steps": {
+            "type": "integer"
+          },
+          "expectile": {
+            "type": "number"
+          },
+          "weight_temp": {
+            "type": "number"
+          },
+          "gamma": {
+            "type": "number"
+          }
+        }
+      },
+      "in/config/agent/d3rlpy/td3_bc.yaml": {
+        "type": "object",
+        "properties": {
+          "engine": {
+            "type": "string",
+            "enum": [
+              "sb3",
+              "d3rlpy",
+              "cleanrl",
+              "custom"
+            ]
+          },
+          "algorithm": {
+            "type": "string"
+          },
+          "learning_rate": {
+            "type": "string"
+          },
+          "batch_size": {
+            "type": "integer"
+          },
+          "n_steps": {
+            "type": "integer"
+          },
+          "alpha": {
+            "type": "number"
+          },
+          "gamma": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "config_paths": [
+    "in/config/agent/d3rlpy/bc.yaml",
+    "in/config/agent/d3rlpy/cql.yaml",
+    "in/config/agent/d3rlpy/iql.yaml",
+    "in/config/agent/d3rlpy/td3_bc.yaml"
+  ]
 }

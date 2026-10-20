@@ -1,0 +1,3 @@
+logic_agent(X):-low_competency(E).
+logic_agent(X):-med_competency(E).
+neural_agent(X):-high_competency(E).

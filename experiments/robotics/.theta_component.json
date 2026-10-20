@@ -1,0 +1,24 @@
+{
+  "id": "robotics",
+  "name": "Robotics Continuous Control Experiments",
+  "kind": "experiment",
+  "version": "1.0.1",
+  "description": "A robotics experiment group with MuJoCo environment presets and Stable-Baselines3 PPO and SAC baselines for five continuous-control robots.",
+  "author": {
+    "name": "Theta-IDE Team"
+  },
+  "target_path": "in/config/experiment/robotics",
+  "compatibility": {
+    "theta": ">=2.0.0"
+  },
+  "paradigms": [
+    "online_rl"
+  ],
+  "dependencies": {
+    "components": [
+      "robotics-mujoco",
+      "sb3-suite",
+      "thetalib"
+    ]
+  }
+}

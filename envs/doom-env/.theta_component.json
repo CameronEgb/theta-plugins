@@ -1,0 +1,72 @@
+{
+  "id": "doom-env",
+  "name": "ViZDoom Environment",
+  "kind": "env",
+  "version": "1.0.0",
+  "description": "ViZDoom visual reinforcement learning environment for Doom scenario benchmarks.",
+  "author": {
+    "name": "ViZDoom Team"
+  },
+  "repository": "https://github.com/Farama-Foundation/ViZDoom",
+  "license": "MIT",
+  "tags": [
+    "doom",
+    "vizdoom",
+    "reinforcement-learning",
+    "visual"
+  ],
+  "target_path": "in/envs/doom",
+  "config_path": "in/config/env/doom.yaml",
+  "dependencies": {
+    "components": [
+      "thetalib"
+    ],
+    "pip": [
+      "vizdoom"
+    ]
+  },
+  "paradigms": [
+    "online_rl"
+  ],
+  "parameter_schema": {
+    "type": "object",
+    "properties": {
+      "monitor_metric": {
+        "type": "string"
+      },
+      "offline_only": {
+        "type": "boolean"
+      },
+      "preprocess_on_load": {
+        "type": "boolean"
+      },
+      "env_id": {
+        "type": "string"
+      },
+      "num_envs": {
+        "type": "integer"
+      },
+      "num_steps": {
+        "type": "integer"
+      },
+      "gamma": {
+        "type": "number"
+      },
+      "gae_lambda": {
+        "type": "number"
+      },
+      "rules": {
+        "type": "string"
+      },
+      "default_plots": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "config_paths": [
+    "in/config/env/doom.yaml"
+  ]
+}

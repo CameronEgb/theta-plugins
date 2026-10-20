@@ -1,0 +1,11 @@
+# @package _global_
+defaults:
+  - robotics/_base
+  - override /env: mujoco/ant
+
+experiment_id: ant_ppo
+methods:
+  ppo_ant:
+    agent: sb3/ppo
+    total_timesteps: 100000
+    gamma: 0.99

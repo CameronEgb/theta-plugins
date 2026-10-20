@@ -1,0 +1,85 @@
+{
+  "id": "mimic-env",
+  "name": "MIMIC-III Clinical Environment Suite",
+  "kind": "env",
+  "version": "1.0.0",
+  "description": "ICU sepsis benchmarks, valuation hooks, clinical rules, and transition interfaces for MIMIC-III.",
+  "author": {
+    "name": "Theta Clinical Team"
+  },
+  "created_at": "2026-10-18T00:00:00Z",
+  "target_path": "in/envs/mimic",
+  "config_path": "in/config/env/mimic.yaml",
+  "dependencies": {
+    "components": [
+      "clinical-timeseries-data",
+      "mimic-early-prediction",
+      "mimic-clinical-suite"
+    ]
+  },
+  "paradigms": [
+    "supervised",
+    "offline_rl"
+  ],
+  "parameter_schema": {
+    "type": "object",
+    "properties": {
+      "monitor_metric": {
+        "type": "string"
+      },
+      "env_id": {
+        "type": "string"
+      },
+      "offline_only": {
+        "type": "boolean"
+      },
+      "preprocess_on_load": {
+        "type": "boolean"
+      },
+      "gamma": {
+        "type": "number"
+      },
+      "gae_lambda": {
+        "type": "number"
+      },
+      "reward_type": {
+        "type": "string"
+      },
+      "dataset_name": {
+        "type": "string"
+      },
+      "reward_shaping": {
+        "type": "object",
+        "properties": {
+          "ep_ckpt_dir": {
+            "type": "string"
+          },
+          "lambda_coef": {
+            "type": "number"
+          },
+          "gamma": {
+            "type": "number"
+          },
+          "window_hours": {
+            "type": "integer"
+          },
+          "ep_arch": {
+            "type": "string"
+          },
+          "cql_ckpt_dir": {
+            "type": "string"
+          }
+        }
+      },
+      "default_plots": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "config_paths": [
+    "in/config/env/mimic.yaml"
+  ]
+}

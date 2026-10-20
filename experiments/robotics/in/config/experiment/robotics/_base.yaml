@@ -1,0 +1,8 @@
+# @package _global_
+paradigm: online_rl
+eval_episodes: 0
+total_timesteps: 100000
+no_plot: false
+methods:
+  params:
+    model: basics/mlp

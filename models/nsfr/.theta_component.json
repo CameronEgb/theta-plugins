@@ -14,5 +14,16 @@
   ],
   "compatibility": {
     "theta": ">=2.0.0"
+  },
+  "parameter_schema": {
+    "type": "object",
+    "properties": {
+      "rules": {
+        "type": "string"
+      },
+      "logic_type": {
+        "type": "string"
+      }
+    }
   }
 }

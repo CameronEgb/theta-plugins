@@ -21,6 +21,8 @@ COMPONENTS = [
     {"id": "gym_classic_control", "name": "gym_classic_control-1.0.1.zip", "src": ROOT / "envs" / "gym_classic_control", "kind": "env", "paradigms": ["online_rl"]},
     {"id": "atari-env", "name": "atari_env-1.0.0.zip", "src": ROOT / "envs" / "atari-env", "kind": "env", "paradigms": ["online_rl"]},
     {"id": "mnist", "name": "mnist-1.0.0.zip", "src": ROOT / "envs" / "mnist", "kind": "env", "paradigms": ["supervised", "unsupervised"]},
+    {"id": "mimic-env", "name": "mimic_env-1.0.0.zip", "src": ROOT / "envs" / "mimic-env", "kind": "env", "suite": "mimic", "hidden": True, "paradigms": ["supervised", "offline_rl"]},
+    {"id": "pyrenees-env", "name": "pyrenees_env-1.0.0.zip", "src": ROOT / "envs" / "pyrenees-env", "kind": "env", "suite": "pyrenees", "hidden": True, "paradigms": ["offline_rl"]},
     # Models
     {"id": "dnn", "name": "dnn-1.0.0.zip", "src": ROOT / "models" / "dnn", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "dueling_resnet", "name": "dueling_resnet-1.0.0.zip", "src": ROOT / "models" / "dueling_resnet", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
@@ -36,9 +38,30 @@ COMPONENTS = [
     # Methods (Real Benchmark Suites)
     {"id": "sb3-suite", "name": "sb3_suite-1.0.0.zip", "src": ROOT / "methods" / "sb3", "kind": "method", "paradigms": ["online_rl"]},
     {"id": "d3rlpy-suite", "name": "d3rlpy_suite-1.0.0.zip", "src": ROOT / "methods" / "d3rlpy", "kind": "method", "paradigms": ["offline_rl"]},
-    # Suites / Meta-Packages
+    # Robotics suite components
+    {"id": "robotics-mujoco", "name": "robotics-mujoco-1.0.1.zip", "src": ROOT / "envs" / "mujoco", "kind": "env", "paradigms": ["online_rl"]},
+    {"id": "robotics", "name": "robotics-1.0.1.zip", "src": ROOT / "experiments" / "robotics", "kind": "experiment", "paradigms": ["online_rl"]},
+    {"id": "robotics_suite", "name": "robotics_suite-1.0.1.zip", "src": ROOT / "suites" / "robotics_suite", "kind": "suite", "paradigms": ["online_rl"]},
+    # Meta Plugins & Suites
+    {"id": "thetalib", "name": "thetalib-1.0.0.zip", "src": ROOT / "suites" / "thetalib", "kind": "plugin", "paradigms": ["online_rl", "offline_rl", "supervised", "unsupervised"]},
     {"id": "basic_suite", "name": "basic_suite-1.0.0.zip", "src": ROOT / "suites" / "basic_suite", "kind": "suite", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "dl_basics_suite", "name": "dl_basics_suite-1.0.0.zip", "src": ROOT / "suites" / "dl_basics_suite", "kind": "suite", "paradigms": ["supervised", "unsupervised", "online_rl", "offline_rl"]},
+    # Experiment Plugins
+    {"id": "mimic", "name": "mimic-1.0.0.zip", "src": ROOT / "experiments" / "mimic", "kind": "experiment", "paradigms": ["supervised", "offline_rl"]},
+    {"id": "pyrenees", "name": "pyrenees-1.0.0.zip", "src": ROOT / "experiments" / "pyrenees", "kind": "experiment", "paradigms": ["offline_rl"]},
+    # Data Modules
+    {"id": "image-data", "name": "image_data-1.0.0.zip", "src": ROOT / "data" / "image-data", "kind": "datamodule", "suite": "thetalib", "hidden": True, "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "replay-buffer", "name": "replay_buffer-1.0.0.zip", "src": ROOT / "data" / "replay-buffer", "kind": "datamodule", "suite": "thetalib", "hidden": True, "paradigms": ["offline_rl"]},
+    {"id": "tabular-data", "name": "tabular_data-1.0.0.zip", "src": ROOT / "data" / "tabular-data", "kind": "datamodule", "suite": "thetalib", "hidden": True, "paradigms": ["supervised", "offline_rl", "unsupervised"]},
+    {"id": "clinical-timeseries-data", "name": "clinical_timeseries_data-1.0.0.zip", "src": ROOT / "data" / "clinical-timeseries-data", "kind": "datamodule", "suite": "mimic", "hidden": True, "paradigms": ["supervised", "offline_rl"]},
+    # Evaluators
+    {"id": "pyrenees-evaluator", "name": "pyrenees_evaluator-1.0.0.zip", "src": ROOT / "eval" / "pyrenees-evaluator", "kind": "evaluator", "suite": "pyrenees", "hidden": True, "paradigms": ["offline_rl"]},
+    {"id": "mimic-early-prediction", "name": "mimic_early_prediction-1.0.0.zip", "src": ROOT / "eval" / "mimic-early-prediction", "kind": "evaluator", "suite": "mimic", "hidden": True, "paradigms": ["supervised", "offline_rl"]},
+    {"id": "reward-shaping", "name": "reward_shaping-1.0.0.zip", "src": ROOT / "eval" / "reward-shaping", "kind": "evaluator", "suite": "mimic", "hidden": True, "paradigms": ["offline_rl"]},
+    # Plotters / Visualization Suites
+    {"id": "standard-figures", "name": "standard_figures-1.0.0.zip", "src": ROOT / "plots" / "standard-figures", "kind": "plotter", "suite": "thetalib", "hidden": True, "paradigms": ["online_rl", "offline_rl", "supervised", "unsupervised"]},
+    {"id": "mimic-clinical-suite", "name": "mimic_clinical_suite-1.0.0.zip", "src": ROOT / "plots" / "mimic-clinical-suite", "kind": "plotter", "suite": "mimic", "hidden": True, "paradigms": ["supervised", "offline_rl"]},
+    {"id": "pyrenees-benchmark-suite", "name": "pyrenees_benchmark_suite-1.0.0.zip", "src": ROOT / "plots" / "pyrenees-benchmark-suite", "kind": "plotter", "suite": "pyrenees", "hidden": True, "paradigms": ["offline_rl"]},
 ]
 
 
@@ -76,6 +99,13 @@ def update_registry_entry(comp: dict, sha256: str, zip_name: str):
             comp_meta = json.loads(meta_file.read_text(encoding="utf-8"))
         except Exception:
             pass
+    if not comp_meta:
+        plugin_file = comp["src"] / "plugin.json"
+        if plugin_file.exists():
+            try:
+                comp_meta = json.loads(plugin_file.read_text(encoding="utf-8"))
+            except Exception:
+                pass
 
     ver = comp_meta.get("version", "1.0.0")
     raw_url = f"https://raw.githubusercontent.com/CameronEgb/theta-hub/main/packages/{zip_name}"
@@ -112,6 +142,24 @@ def update_registry_entry(comp: dict, sha256: str, zip_name: str):
         entry["config_path"] = comp_meta["config_path"]
     if "config_paths" in comp_meta:
         entry["config_paths"] = comp_meta["config_paths"]
+    if "parameter_schema" in comp_meta:
+        entry["parameter_schema"] = comp_meta["parameter_schema"]
+    if "target_path" in comp_meta:
+        entry["target_path"] = comp_meta["target_path"]
+    if "dependencies" in comp_meta:
+        entry["dependencies"] = comp_meta["dependencies"]
+    if "suite" in comp_meta:
+        entry["suite"] = comp_meta["suite"]
+    elif "suite" in comp:
+        entry["suite"] = comp["suite"]
+    if "hidden" in comp_meta:
+        entry["hidden"] = comp_meta["hidden"]
+    elif "hidden" in comp:
+        entry["hidden"] = comp["hidden"]
+    if "provides" in comp_meta:
+        entry["provides"] = comp_meta["provides"]
+    if "installed_dirs" in comp_meta:
+        entry["installed_dirs"] = comp_meta["installed_dirs"]
 
     # Record supported paradigms
     paradigms = comp_meta.get("paradigms") or comp.get("paradigms")
@@ -126,7 +174,7 @@ def update_registry_entry(comp: dict, sha256: str, zip_name: str):
         "tag": f"v{ver}",
         "url": raw_url,
         "sha256": sha256,
-        "published_at": "2026-10-16T19:00:00Z",
+        "published_at": "2026-10-18T19:00:00Z",
     }
 
     reg_file.write_text(json.dumps(entry, indent=2) + "\n", encoding="utf-8")

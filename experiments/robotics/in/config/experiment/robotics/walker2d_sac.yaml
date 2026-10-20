@@ -1,0 +1,11 @@
+# @package _global_
+defaults:
+  - robotics/_base
+  - override /env: mujoco/walker2d
+
+experiment_id: walker2d_sac
+methods:
+  sac_walker2d:
+    agent: sb3/sac
+    total_timesteps: 100000
+    gamma: 0.99

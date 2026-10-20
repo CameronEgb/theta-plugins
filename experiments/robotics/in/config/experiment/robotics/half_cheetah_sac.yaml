@@ -1,0 +1,11 @@
+# @package _global_
+defaults:
+  - robotics/_base
+  - override /env: mujoco/half_cheetah
+
+experiment_id: half_cheetah_sac
+methods:
+  sac_half_cheetah:
+    agent: sb3/sac
+    total_timesteps: 100000
+    gamma: 0.99

@@ -3,12 +3,13 @@
   "name": "ThetaIDE Basics",
   "kind": "suite",
   "version": "1.0.0",
-  "description": "Basic reinforcement learning benchmark suite for Theta-IDE: Stable-Baselines3, d3rlpy offline baselines, Atari 2600 (ALE), Gymnasium classic control, and standard deep neural network architectures.",
+  "description": "Basic reinforcement learning benchmark suite for Theta-IDE: Stable-Baselines3, d3rlpy offline baselines, Atari 2600 (ALE), Gymnasium classic control, standard deep neural network architectures, and ThetaLib core figures and loaders.",
   "author": {
     "name": "Theta-IDE Team"
   },
   "dependencies": {
     "components": [
+      "thetalib",
       "sb3-suite",
       "d3rlpy-suite",
       "atari-env",

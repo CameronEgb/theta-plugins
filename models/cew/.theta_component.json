@@ -5,5 +5,22 @@
   "version": "1.0.0",
   "installed_from": "https://raw.githubusercontent.com/CameronEgb/theta-hub/main/packages/cew-1.0.0.zip",
   "sha256": "3db5d37219a88e614ff52a8a6cbd5bcee4fa956462311f5325ca6d4e43397043",
-  "config_path": "in/config/model/cew.yaml"
+  "config_path": "in/config/model/cew.yaml",
+  "parameter_schema": {
+    "type": "object",
+    "properties": {
+      "ecm_dthr": {
+        "type": "number"
+      },
+      "fyd": {
+        "type": "boolean"
+      },
+      "fyd_top_k": {
+        "type": "integer"
+      }
+    }
+  },
+  "config_paths": [
+    "in/config/model/cew.yaml"
+  ]
 }

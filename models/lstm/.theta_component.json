@@ -16,5 +16,28 @@
   "config_path": "in/config/model/basics/lstm.yaml",
   "config_paths": [
     "in/config/model/basics/lstm.yaml"
-  ]
+  ],
+  "parameter_schema": {
+    "type": "object",
+    "properties": {
+      "hidden_dim": {
+        "type": "integer"
+      },
+      "num_layers": {
+        "type": "integer"
+      },
+      "dropout": {
+        "type": "number"
+      },
+      "use_dual_pooling": {
+        "type": "boolean"
+      },
+      "use_tcn_conv": {
+        "type": "boolean"
+      },
+      "bidirectional": {
+        "type": "boolean"
+      }
+    }
+  }
 }

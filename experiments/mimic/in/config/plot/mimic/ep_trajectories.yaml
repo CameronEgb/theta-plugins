@@ -1,0 +1,4 @@
+max_trajectories: 20
+sample_interval: 1
+figsize: [10, 6]
+dpi: 300

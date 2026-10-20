@@ -16,5 +16,28 @@
   "config_path": "in/config/model/basics/transformer.yaml",
   "config_paths": [
     "in/config/model/basics/transformer.yaml"
-  ]
+  ],
+  "parameter_schema": {
+    "type": "object",
+    "properties": {
+      "d_model": {
+        "type": "integer"
+      },
+      "nhead": {
+        "type": "integer"
+      },
+      "num_layers": {
+        "type": "integer"
+      },
+      "dim_feedforward": {
+        "type": "integer"
+      },
+      "dropout": {
+        "type": "number"
+      },
+      "max_len": {
+        "type": "integer"
+      }
+    }
+  }
 }

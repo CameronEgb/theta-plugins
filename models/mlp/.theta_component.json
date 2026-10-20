@@ -17,5 +17,64 @@
   "config_paths": [
     "in/config/model/basics/mlp.yaml",
     "in/config/model/basics/mlp_classifier.yaml"
-  ]
+  ],
+  "suite": "thetalib",
+  "hidden": true,
+  "parameter_schema": {
+    "type": "object",
+    "properties": {},
+    "x-theta-config-schemas": {
+      "in/config/model/basics/mlp.yaml": {
+        "type": "object",
+        "properties": {
+          "hidden_dims": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "activation": {
+            "type": "string",
+            "enum": [
+              "relu",
+              "gelu",
+              "tanh",
+              "elu",
+              "silu",
+              "sigmoid",
+              "leaky_relu",
+              "identity"
+            ]
+          }
+        }
+      },
+      "in/config/model/basics/mlp_classifier.yaml": {
+        "type": "object",
+        "properties": {
+          "hidden_dims": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "activation": {
+            "type": "string",
+            "enum": [
+              "relu",
+              "gelu",
+              "tanh",
+              "elu",
+              "silu",
+              "sigmoid",
+              "leaky_relu",
+              "identity"
+            ]
+          },
+          "dropout": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
 }

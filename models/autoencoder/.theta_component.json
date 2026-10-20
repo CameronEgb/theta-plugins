@@ -16,5 +16,39 @@
   "config_paths": [
     "in/config/model/basics/autoencoder.yaml",
     "in/config/model/basics/dense_autoencoder.yaml"
-  ]
+  ],
+  "parameter_schema": {
+    "type": "object",
+    "properties": {},
+    "x-theta-config-schemas": {
+      "in/config/model/basics/autoencoder.yaml": {
+        "type": "object",
+        "properties": {
+          "latent_dim": {
+            "type": "integer"
+          },
+          "hidden_dims": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "in/config/model/basics/dense_autoencoder.yaml": {
+        "type": "object",
+        "properties": {
+          "latent_dim": {
+            "type": "integer"
+          },
+          "hidden_dims": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  }
 }
