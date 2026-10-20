@@ -1,0 +1,12 @@
+name: digits
+env_id: digits
+compatible_paradigms: [supervised, unsupervised]
+environment_source: static_dataset
+monitor_metric: "val/loss"
+dataset_name: digits.npz
+obs_dim: 64
+n_actions: 10
+use_sequences: false
+val_fraction: 0.3
+batch_size: 64
+default_plots: [losses]

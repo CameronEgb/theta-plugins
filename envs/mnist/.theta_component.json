@@ -17,8 +17,7 @@
   ],
   "paradigms": [
     "supervised",
-    "unsupervised",
-    "online_rl"
+    "unsupervised"
   ],
   "target_path": "in/envs/mnist",
   "config_path": "in/config/env/mnist.yaml",

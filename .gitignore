@@ -34,3 +34,13 @@ ENV/
 .vscode/
 *.swp
 *.swo
+
+# Track the MNIST component YAMLs stored below a directory named env.
+!envs/mnist/config/
+!envs/mnist/config/env/
+!envs/mnist/config/env/mnist/
+!envs/mnist/config/env/mnist/*.yaml
+!envs/gym_classic_control/config/
+!envs/gym_classic_control/config/env/
+!envs/gym_classic_control/config/env/gym_classic_control/
+!envs/gym_classic_control/config/env/gym_classic_control/*.yaml

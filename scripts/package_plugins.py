@@ -18,9 +18,9 @@ COMPONENTS = [
     {"id": "antigravity", "name": "antigravity-0.1.5.zip", "src": ROOT / "plugins" / "antigravity", "kind": "plugin"},
     # Environments
     {"id": "doom-env", "name": "doom_env-1.0.0.zip", "src": ROOT / "envs" / "doom-env", "kind": "env", "paradigms": ["online_rl"]},
-    {"id": "gym_classic_control", "name": "gym_classic_control-1.0.0.zip", "src": ROOT / "envs" / "gym_classic_control", "kind": "env", "paradigms": ["online_rl"]},
+    {"id": "gym_classic_control", "name": "gym_classic_control-1.0.1.zip", "src": ROOT / "envs" / "gym_classic_control", "kind": "env", "paradigms": ["online_rl"]},
     {"id": "atari-env", "name": "atari_env-1.0.0.zip", "src": ROOT / "envs" / "atari-env", "kind": "env", "paradigms": ["online_rl"]},
-    {"id": "mnist", "name": "mnist-1.0.0.zip", "src": ROOT / "envs" / "mnist", "kind": "env", "paradigms": ["supervised", "unsupervised", "online_rl"]},
+    {"id": "mnist", "name": "mnist-1.0.0.zip", "src": ROOT / "envs" / "mnist", "kind": "env", "paradigms": ["supervised", "unsupervised"]},
     # Models
     {"id": "dnn", "name": "dnn-1.0.0.zip", "src": ROOT / "models" / "dnn", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "dueling_resnet", "name": "dueling_resnet-1.0.0.zip", "src": ROOT / "models" / "dueling_resnet", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
