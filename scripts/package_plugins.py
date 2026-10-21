@@ -38,7 +38,7 @@ COMPONENTS = [
     {"id": "nsfr", "name": "nsfr-1.0.0.zip", "src": ROOT / "models" / "nsfr", "kind": "model", "paradigms": ["online_rl", "offline_rl"]},
     {"id": "neumann", "name": "neumann-1.0.0.zip", "src": ROOT / "models" / "neumann", "kind": "model", "paradigms": ["online_rl", "offline_rl"]},
     # Methods (Real Benchmark Suites)
-    {"id": "sb3-suite", "name": "sb3_suite-1.0.2.zip", "src": ROOT / "methods" / "sb3", "kind": "method", "paradigms": ["online_rl"]},
+    {"id": "sb3-suite", "name": "sb3_suite-1.0.3.zip", "src": ROOT / "methods" / "sb3", "kind": "method", "paradigms": ["online_rl"]},
     {"id": "d3rlpy-suite", "name": "d3rlpy_suite-1.0.2.zip", "src": ROOT / "methods" / "d3rlpy", "kind": "method", "paradigms": ["offline_rl"]},
     # Robotics suite components
     {"id": "robotics-mujoco", "name": "robotics-mujoco-1.0.1.zip", "src": ROOT / "envs" / "mujoco", "kind": "env", "paradigms": ["online_rl"]},
