@@ -11,10 +11,8 @@ except ImportError:
 
 try:
     import torch as th
-    from nudge.env import NudgeBaseEnv
 except ImportError:
     th = None
-    NudgeBaseEnv = object
 
 
 class DoomSimGym:
@@ -165,8 +163,8 @@ class DoomSimGym:
         pass
 
 
-class NudgeEnv(NudgeBaseEnv):
-    """Nudge / NeSyRL wrapper for DOOM RL simulator."""
+class NudgeEnv:
+    """DOOM-specific dual-state adapter, self-contained in this environment plugin."""
     name = "doom"
     pred2action = {
         "forward": 0,
@@ -179,7 +177,7 @@ class NudgeEnv(NudgeBaseEnv):
     pred_names: Sequence
 
     def __init__(self, mode: str = "ppo", render_mode="rgb_array", seed=None, **kwargs):
-        super().__init__(mode) if hasattr(super(), "__init__") else None
+        self.mode = mode
         self.env = DoomSimGym(seed=seed)
         self.n_actions = 6
         self.n_raw_actions = 6
@@ -219,6 +217,24 @@ class NudgeEnv(NudgeBaseEnv):
         if th is None:
             return obs
         return th.tensor(obs, dtype=th.float32).unsqueeze(0)
+
+    def convert_state(self, state: Any, raw_state: Any) -> Tuple[Any, Any]:
+        """Return the plugin's logic and neural observations for a raw state."""
+        return self.extract_logic_state(state), self.extract_neural_state(raw_state)
+
+    def map_action(self, model_action: Any) -> int:
+        """Map a plugin action name or index to DoomSimGym's zero-based action space."""
+        if hasattr(model_action, "item"):
+            model_action = model_action.item()
+        if isinstance(model_action, str):
+            for predicate, action in self.pred2action.items():
+                if predicate in model_action:
+                    return action
+            raise ValueError(f"Unknown Doom action {model_action!r}; expected one of {list(self.pred2action)}")
+        action = int(model_action)
+        if action not in self.pred2action.values():
+            raise ValueError(f"Doom action index {action} is outside 0..{len(self.pred2action) - 1}")
+        return action
 
     def get_action_meanings(self) -> List[str]:
         return ["forward", "backward", "turn_left", "turn_right", "fire", "use"]

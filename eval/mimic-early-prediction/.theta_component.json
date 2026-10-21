@@ -2,7 +2,7 @@
   "id": "mimic-early-prediction",
   "name": "MIMIC Early Prediction Evaluator",
   "kind": "evaluator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Septic shock early prediction evaluator, AUPRC scoring, counterfactual analysis, and agreement metrics.",
   "author": {
     "name": "Theta Clinical Team"

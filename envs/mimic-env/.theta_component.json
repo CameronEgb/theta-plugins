@@ -2,7 +2,7 @@
   "id": "mimic-env",
   "name": "MIMIC-III Clinical Environment Suite",
   "kind": "env",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ICU sepsis benchmarks, valuation hooks, clinical rules, and transition interfaces for MIMIC-III.",
   "author": {
     "name": "Theta Clinical Team"

@@ -19,18 +19,18 @@ COMPONENTS = [
     {"id": "doom-sim", "name": "doom_sim-0.1.0.zip", "src": ROOT / "plugins" / "doom-sim", "kind": "plugin"},
     {"id": "antigravity", "name": "antigravity-0.1.5.zip", "src": ROOT / "plugins" / "antigravity", "kind": "plugin"},
     # Environments
-    {"id": "doom-env", "name": "doom_env-1.0.0.zip", "src": ROOT / "envs" / "doom-env", "kind": "env", "paradigms": ["online_rl"]},
-    {"id": "gym_classic_control", "name": "gym_classic_control-1.0.1.zip", "src": ROOT / "envs" / "gym_classic_control", "kind": "env", "paradigms": ["online_rl"]},
+    {"id": "doom-env", "name": "doom_env-1.0.1.zip", "src": ROOT / "envs" / "doom-env", "kind": "env", "paradigms": ["online_rl"]},
+    {"id": "gym_classic_control", "name": "gym_classic_control-1.0.2.zip", "src": ROOT / "envs" / "gym_classic_control", "kind": "env", "paradigms": ["online_rl"]},
     {"id": "atari-env", "name": "atari_env-1.0.0.zip", "src": ROOT / "envs" / "atari-env", "kind": "env", "paradigms": ["online_rl"]},
     {"id": "mnist", "name": "mnist-1.0.0.zip", "src": ROOT / "envs" / "mnist", "kind": "env", "paradigms": ["supervised", "unsupervised"]},
-    {"id": "mimic-env", "name": "mimic_env-1.0.0.zip", "src": ROOT / "envs" / "mimic-env", "kind": "env", "suite": "mimic", "hidden": True, "paradigms": ["supervised", "offline_rl"]},
+    {"id": "mimic-env", "name": "mimic_env-1.0.1.zip", "src": ROOT / "envs" / "mimic-env", "kind": "env", "suite": "mimic", "hidden": True, "paradigms": ["supervised", "offline_rl"]},
     {"id": "pyrenees-env", "name": "pyrenees_env-1.0.0.zip", "src": ROOT / "envs" / "pyrenees-env", "kind": "env", "suite": "pyrenees", "hidden": True, "paradigms": ["offline_rl"]},
     # Models
     {"id": "dnn", "name": "dnn-1.0.0.zip", "src": ROOT / "models" / "dnn", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "dueling_resnet", "name": "dueling_resnet-1.0.0.zip", "src": ROOT / "models" / "dueling_resnet", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "nature_cnn", "name": "nature_cnn-1.0.0.zip", "src": ROOT / "models" / "nature_cnn", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "cew", "name": "cew-1.0.0.zip", "src": ROOT / "models" / "cew", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
-    {"id": "blendrl", "name": "blendrl-1.0.0.zip", "src": ROOT / "models" / "blendrl", "kind": "model", "paradigms": ["online_rl", "offline_rl"]},
+    {"id": "blendrl", "name": "blendrl-1.0.3.zip", "src": ROOT / "models" / "blendrl", "kind": "model", "paradigms": ["online_rl", "offline_rl"]},
     {"id": "mlp", "name": "mlp-1.0.0.zip", "src": ROOT / "models" / "mlp", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "transformer", "name": "transformer-1.0.0.zip", "src": ROOT / "models" / "transformer", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
     {"id": "lstm", "name": "lstm-1.0.0.zip", "src": ROOT / "models" / "lstm", "kind": "model", "paradigms": ["online_rl", "offline_rl", "supervised"]},
@@ -38,8 +38,8 @@ COMPONENTS = [
     {"id": "nsfr", "name": "nsfr-1.0.0.zip", "src": ROOT / "models" / "nsfr", "kind": "model", "paradigms": ["online_rl", "offline_rl"]},
     {"id": "neumann", "name": "neumann-1.0.0.zip", "src": ROOT / "models" / "neumann", "kind": "model", "paradigms": ["online_rl", "offline_rl"]},
     # Methods (Real Benchmark Suites)
-    {"id": "sb3-suite", "name": "sb3_suite-1.0.0.zip", "src": ROOT / "methods" / "sb3", "kind": "method", "paradigms": ["online_rl"]},
-    {"id": "d3rlpy-suite", "name": "d3rlpy_suite-1.0.0.zip", "src": ROOT / "methods" / "d3rlpy", "kind": "method", "paradigms": ["offline_rl"]},
+    {"id": "sb3-suite", "name": "sb3_suite-1.0.2.zip", "src": ROOT / "methods" / "sb3", "kind": "method", "paradigms": ["online_rl"]},
+    {"id": "d3rlpy-suite", "name": "d3rlpy_suite-1.0.2.zip", "src": ROOT / "methods" / "d3rlpy", "kind": "method", "paradigms": ["offline_rl"]},
     # Robotics suite components
     {"id": "robotics-mujoco", "name": "robotics-mujoco-1.0.1.zip", "src": ROOT / "envs" / "mujoco", "kind": "env", "paradigms": ["online_rl"]},
     {"id": "robotics", "name": "robotics-1.0.1.zip", "src": ROOT / "experiments" / "robotics", "kind": "experiment", "paradigms": ["online_rl"]},
@@ -50,7 +50,7 @@ COMPONENTS = [
     {"id": "theta-validation-suite", "name": "theta-validation-suite-1.1.0.zip", "src": ROOT / "suites" / "theta-validation-suite", "kind": "suite", "paradigms": ["online_rl"]},
     {"id": "dl_basics_suite", "name": "dl_basics_suite-1.0.0.zip", "src": ROOT / "suites" / "dl_basics_suite", "kind": "suite", "paradigms": ["supervised", "unsupervised", "online_rl", "offline_rl"]},
     # Experiment Plugins
-    {"id": "mimic", "name": "mimic-1.0.0.zip", "src": ROOT / "experiments" / "mimic", "kind": "experiment", "paradigms": ["supervised", "offline_rl"]},
+    {"id": "mimic", "name": "mimic-1.0.1.zip", "src": ROOT / "experiments" / "mimic", "kind": "experiment", "paradigms": ["supervised", "offline_rl"]},
     {"id": "pyrenees", "name": "pyrenees-1.0.0.zip", "src": ROOT / "experiments" / "pyrenees", "kind": "experiment", "paradigms": ["offline_rl"]},
     # Data Modules
     {"id": "image-data", "name": "image_data-1.0.0.zip", "src": ROOT / "data" / "image-data", "kind": "datamodule", "suite": "thetalib", "hidden": True, "paradigms": ["online_rl", "offline_rl", "supervised"]},
@@ -59,7 +59,7 @@ COMPONENTS = [
     {"id": "clinical-timeseries-data", "name": "clinical_timeseries_data-1.0.0.zip", "src": ROOT / "data" / "clinical-timeseries-data", "kind": "datamodule", "suite": "mimic", "hidden": True, "paradigms": ["supervised", "offline_rl"]},
     # Evaluators
     {"id": "pyrenees-evaluator", "name": "pyrenees_evaluator-1.0.0.zip", "src": ROOT / "eval" / "pyrenees-evaluator", "kind": "evaluator", "suite": "pyrenees", "hidden": True, "paradigms": ["offline_rl"]},
-    {"id": "mimic-early-prediction", "name": "mimic_early_prediction-1.0.0.zip", "src": ROOT / "eval" / "mimic-early-prediction", "kind": "evaluator", "suite": "mimic", "hidden": True, "paradigms": ["supervised", "offline_rl"]},
+    {"id": "mimic-early-prediction", "name": "mimic_early_prediction-1.0.1.zip", "src": ROOT / "eval" / "mimic-early-prediction", "kind": "evaluator", "suite": "mimic", "hidden": True, "paradigms": ["supervised", "offline_rl"]},
     {"id": "reward-shaping", "name": "reward_shaping-1.0.0.zip", "src": ROOT / "eval" / "reward-shaping", "kind": "evaluator", "suite": "mimic", "hidden": True, "paradigms": ["offline_rl"]},
     # Plotters / Visualization Suites
     {"id": "standard-figures", "name": "standard_figures-1.0.0.zip", "src": ROOT / "plots" / "standard-figures", "kind": "plotter", "suite": "thetalib", "hidden": True, "paradigms": ["online_rl", "offline_rl", "supervised", "unsupervised"]},

@@ -2,7 +2,7 @@
   "id": "blendrl",
   "name": "BlendRL Neural-Symbolic Policy",
   "kind": "model",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Modular actor-critic architecture combining neural networks and symbolic reasoners with adaptive blending.",
   "author": {
     "name": "NeSyRL Contributors",
@@ -19,6 +19,13 @@
     "rl"
   ],
   "target_path": "src/usr/models/blendrl",
+  "dependencies": {
+    "components": [
+      "dnn",
+      "nsfr",
+      "neumann"
+    ]
+  },
   "config_path": "in/config/model/blendrl.yaml",
   "config_paths": [
     "in/config/model/blendrl.yaml"

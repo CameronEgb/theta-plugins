@@ -2,7 +2,7 @@
   "id": "doom-env",
   "name": "ViZDoom Environment",
   "kind": "env",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ViZDoom visual reinforcement learning environment for Doom scenario benchmarks.",
   "author": {
     "name": "ViZDoom Team"

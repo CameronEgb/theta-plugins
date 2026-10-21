@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import numpy as np
 import torch as th
@@ -126,8 +127,20 @@ class VectorizedNudgeEnv(VectorizedBaseEnv):
         self.seed = seed if seed is not None else 42
         
         # Load dataset
-        from src.app.pipeline.datasets import resolve_mimic_npz_path
-        path = str(resolve_mimic_npz_path(dataset_name))
+        dataset_path = Path(dataset_name)
+        if not dataset_path.is_file():
+            filename = dataset_path.name
+            search_dirs = [
+                Path(os.environ.get("MIMIC_DATASET_DIR", "")),
+                Path("in/datasets/mimic"),
+                Path("in/datasets"),
+            ]
+            dataset_path = next(
+                (directory / filename for directory in search_dirs
+                 if str(directory) not in ("", ".") and (directory / filename).is_file()),
+                dataset_path,
+            )
+        path = str(dataset_path)
                     
         if not os.path.exists(path):
             raise FileNotFoundError(f"MIMIC dataset not found at {path}")
@@ -205,7 +218,7 @@ class VectorizedNudgeEnv(VectorizedBaseEnv):
 
             is_done = (step_idx == len(valid_steps) - 1)
 
-            reward_type = os.environ.get("MIMIC_REWARD_TYPE", "tqn").lower()
+            reward_type = os.environ.get("REWARD_TYPE", "tqn").lower()
             if reward_type == "outcome":
                 outcome = self.y[traj, 0]
                 terminal_reward = 15.0 if outcome == 0 else -15.0

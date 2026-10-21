@@ -9,11 +9,17 @@ from sklearn.model_selection import train_test_split
 
 # Dynamic dataset directory detection
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-from src.app.pipeline.datasets import resolve_mimic_npz_path
-
-src_path = str(resolve_mimic_npz_path("mimic_lazy_0_interventions_balanced.npz"))
+dataset_name = "mimic_lazy_0_interventions_balanced.npz"
+search_dirs = [
+    Path(os.environ.get("MIMIC_DATASET_DIR", "")),
+    PROJECT_ROOT / "in" / "datasets" / "mimic",
+    PROJECT_ROOT / "in" / "datasets",
+]
+src_path = next(
+    (str(directory / dataset_name) for directory in search_dirs
+     if str(directory) not in ("", ".") and (directory / dataset_name).is_file()),
+    "",
+)
 out_dir = os.path.dirname(src_path)
 out_path = os.path.join(out_dir, "mimic_expert_demonstrations.npz")
 

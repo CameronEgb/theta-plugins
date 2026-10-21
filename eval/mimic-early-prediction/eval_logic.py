@@ -65,13 +65,25 @@ def marker(name: str) -> str:
     return get_method_style(name).get("marker") or "o"
 
 
-from src.app.pipeline.datasets import resolve_mimic_npz_path
-
-
 def resolve_mimic_dataset(args):
-    """Resolve the MIMIC .npz dataset path from args or standard dataset directories."""
+    """Resolve the MIMIC .npz dataset using this component's dataset settings."""
     fname = getattr(args, "dataset_path", None) or getattr(args, "dataset_name", None)
-    return str(resolve_mimic_npz_path(fname))
+    if not fname:
+        fname = os.environ.get("MIMIC_DATASET_NAME", "mimic_lazy_0_interventions_balanced.npz")
+    path = Path(fname)
+    if path.is_file():
+        return str(path.resolve())
+    filename = path.name
+    search_dirs = [
+        Path(os.environ.get("MIMIC_DATASET_DIR", "")),
+        Path(PROJECT_ROOT) / "in" / "datasets" / "mimic",
+        Path(PROJECT_ROOT) / "in" / "datasets",
+    ]
+    for directory in search_dirs:
+        candidate = directory / filename
+        if str(directory) not in ("", ".") and candidate.is_file():
+            return str(candidate.resolve())
+    raise FileNotFoundError(f"MIMIC dataset {filename!r} was not found in the configured dataset directories.")
 
 
 def discover_single_policy(path: Path) -> dict:
@@ -633,9 +645,7 @@ def compute_ep_eval_data(
     #  1. Load dataset
     # -----------------------------------------------------------------------
     if not dataset_path:
-        from src.app.pipeline.datasets import resolve_mimic_npz_path
-
-        dataset_path = str(resolve_mimic_npz_path("mimic_lazy_0_interventions_balanced.npz"))
+        dataset_path = resolve_mimic_dataset(argparse.Namespace())
     else:
         dataset_path = str(dataset_path)
     print(f"Loading dataset: {dataset_path}")

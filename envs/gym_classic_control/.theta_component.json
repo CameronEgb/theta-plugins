@@ -2,13 +2,14 @@
   "id": "gym_classic_control",
   "name": "Gymnasium Classic Control",
   "kind": "env",
-  "version": "1.0.1",
-  "description": "Standard Gymnasium classic control environments: MountainCar, Pendulum, and Acrobot.",
+  "version": "1.0.2",
+  "description": "Standard Gymnasium classic control environments: CartPole, MountainCar, Pendulum, and Acrobot.",
   "author": {
     "name": "Theta-IDE Team"
   },
-  "config_path": "in/config/env/gym_classic_control/acrobot.yaml",
+  "config_path": "in/config/env/gym_classic_control/cartpole.yaml",
   "config_paths": [
+    "in/config/env/gym_classic_control/cartpole.yaml",
     "in/config/env/gym_classic_control/mountaincar.yaml",
     "in/config/env/gym_classic_control/pendulum.yaml",
     "in/config/env/gym_classic_control/acrobot.yaml"
@@ -85,6 +86,38 @@
         }
       },
       "in/config/env/gym_classic_control/acrobot.yaml": {
+        "type": "object",
+        "properties": {
+          "monitor_metric": {
+            "type": "string"
+          },
+          "preprocess_on_load": {
+            "type": "boolean"
+          },
+          "env_id": {
+            "type": "string"
+          },
+          "num_envs": {
+            "type": "integer"
+          },
+          "num_steps": {
+            "type": "integer"
+          },
+          "gamma": {
+            "type": "number"
+          },
+          "gae_lambda": {
+            "type": "number"
+          },
+          "default_plots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "in/config/env/gym_classic_control/cartpole.yaml": {
         "type": "object",
         "properties": {
           "monitor_metric": {

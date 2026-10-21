@@ -1,9 +1,8 @@
 import os
 import pickle
 import random
-
-# from nudge.env import NudgeBaseEnv
 import sys
+import inspect
 from pathlib import Path
 from typing import Any
 
@@ -32,12 +31,42 @@ for _p in [
 
 from nsfr.common import get_nsfr_model
 from nsfr.utils.common import load_module
-from nudge.agents.logic_agent import NsfrActorCritic
-from nudge.agents.neural_agent import ActorCritic, NeuralPPO
-from nudge.torch_utils import softor
-from src.app.core.factories import get_blender, get_neural_agent
 from src.app.core.model_registry import register_model
 from src.app.core.types import ActionResult
+
+
+def _softor(xs, dim=0, gamma=0.015):
+    """Smooth logical OR used to merge action scores within this plugin."""
+    if not torch.is_tensor(xs):
+        xs = torch.stack(xs, dim=dim)
+    result = gamma * torch.logsumexp(xs / gamma, dim=dim)
+    maximum = result.max()
+    return result / maximum if maximum > 1.0 else result
+
+
+def _build_neural_agent(env_name, n_actions, device, arch_name=None, hidden_sizes=None, num_in_features=None):
+    from src.app.core.model_registry import build_model
+
+    return build_model(
+        arch_name or "dnn",
+        env=env_name,
+        n_actions=n_actions,
+        device=device,
+        hidden_sizes=hidden_sizes or [64, 64],
+        obs_dim=num_in_features,
+    )
+
+
+def _instantiate(factory, **kwargs):
+    target = factory.__init__ if isinstance(factory, type) else factory
+    try:
+        signature = inspect.signature(target)
+    except (TypeError, ValueError):
+        return factory(**kwargs)
+    if any(p.kind == inspect.Parameter.VAR_KEYWORD for p in signature.parameters.values()):
+        return factory(**kwargs)
+    accepted = {key: value for key, value in kwargs.items() if key in signature.parameters}
+    return factory(**accepted)
 
 
 class BlenderActor(nn.Module):
@@ -281,7 +310,7 @@ class BlenderActor(nn.Module):
                     continue
                 indices = indices.expand(batch_size, -1)
                 gathered = torch.gather(policy_probs, 1, indices)
-                merged = softor(gathered, dim=1)
+                merged = _softor(gathered, dim=1)
                 mode_probs.append(merged)
 
             probs = torch.stack(mode_probs, dim=1).squeeze(-1)
@@ -432,6 +461,16 @@ class BlenderActorCritic(nn.Module):
         if hasattr(self, "actor") and hasattr(self.actor, "to_blender_policy_distribution"):
             return self.actor.to_blender_policy_distribution(obs, logic_obs)
         return None
+
+    def clone_topology_to(self, target) -> None:
+        """Sync topology-changing policy modules into this plugin's target model."""
+        source_modules = getattr(self, "policy_modules", None) or []
+        target_modules = getattr(target, "policy_modules", None) or []
+        for source, destination in zip(source_modules, target_modules):
+            if hasattr(source, "clone_topology_to"):
+                source.clone_topology_to(destination)
+            elif hasattr(destination, "clone_topology_from"):
+                destination.clone_topology_from(source)
 
     def compute_auxiliary_losses(self, batch, output) -> dict[str, torch.Tensor]:
         losses = {}
@@ -592,7 +631,7 @@ class BlenderActorCritic(nn.Module):
                     if arch == "neural" or not arch:
                         arch = self.architecture or "dnn"
                     m_hidden = _get_val(m_cfg, "hidden_sizes", hidden_sizes)
-                    m = get_neural_agent(
+                    m = _build_neural_agent(
                         env.name,
                         env.n_actions,
                         device,
@@ -614,7 +653,7 @@ class BlenderActorCritic(nn.Module):
 
             # Add Neural module first
             self.policy_modules.append(
-                get_neural_agent(
+                _build_neural_agent(
                     env.name,
                     env.n_actions,
                     device,
@@ -642,7 +681,7 @@ class BlenderActorCritic(nn.Module):
         if blender_rules is None:
             blender_rules = rulesets[0] if "rulesets" in locals() else (rules if isinstance(rules, str) else rules[0])
 
-        self.blender = get_blender(
+        self.blender = build_blender_module(
             env,
             blender_rules,
             device,
@@ -660,9 +699,7 @@ class BlenderActorCritic(nn.Module):
             module = load_module(mlp_module_path)
             mlp_cls = getattr(module, "StandardMLP", getattr(module, "MLP", None))
             if mlp_cls:
-                from src.app.core.factories import _safe_instantiate
-
-                self.logic_critic = _safe_instantiate(
+                self.logic_critic = _instantiate(
                     mlp_cls,
                     device=device,
                     out_size=1,
