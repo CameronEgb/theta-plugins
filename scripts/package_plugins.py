@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Builds .zip packages for all plugins, models, methods, and environments in theta-plugins, computing SHA-256."""
+import argparse
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -45,6 +47,7 @@ COMPONENTS = [
     # Meta Plugins & Suites
     {"id": "thetalib", "name": "thetalib-1.0.0.zip", "src": ROOT / "suites" / "thetalib", "kind": "plugin", "paradigms": ["online_rl", "offline_rl", "supervised", "unsupervised"]},
     {"id": "basic_suite", "name": "basic_suite-1.0.0.zip", "src": ROOT / "suites" / "basic_suite", "kind": "suite", "paradigms": ["online_rl", "offline_rl", "supervised"]},
+    {"id": "theta-validation-suite", "name": "theta-validation-suite-1.1.0.zip", "src": ROOT / "suites" / "theta-validation-suite", "kind": "suite", "paradigms": ["online_rl"]},
     {"id": "dl_basics_suite", "name": "dl_basics_suite-1.0.0.zip", "src": ROOT / "suites" / "dl_basics_suite", "kind": "suite", "paradigms": ["supervised", "unsupervised", "online_rl", "offline_rl"]},
     # Experiment Plugins
     {"id": "mimic", "name": "mimic-1.0.0.zip", "src": ROOT / "experiments" / "mimic", "kind": "experiment", "paradigms": ["supervised", "offline_rl"]},
@@ -129,10 +132,14 @@ def update_registry_entry(comp: dict, sha256: str, zip_name: str):
             "releases": {},
         }
 
-    if "repository" not in entry:
-        entry["repository"] = comp_meta.get("repository", "https://github.com/CameronEgb/theta-plugins")
-    if "license" not in entry:
-        entry["license"] = comp_meta.get("license", "MIT")
+    if comp_meta.get("repository"):
+        entry["repository"] = comp_meta["repository"]
+    if comp_meta.get("license"):
+        entry["license"] = comp_meta["license"]
+    if comp_meta.get("tags"):
+        entry["tags"] = comp_meta["tags"]
+    if "test_suite" in comp_meta:
+        entry["test_suite"] = comp_meta["test_suite"]
 
     if "name" in comp_meta:
         entry["name"] = comp_meta["name"]
@@ -174,13 +181,21 @@ def update_registry_entry(comp: dict, sha256: str, zip_name: str):
         "tag": f"v{ver}",
         "url": raw_url,
         "sha256": sha256,
-        "published_at": "2026-10-18T19:00:00Z",
+        "published_at": datetime.now(timezone.utc).isoformat(),
     }
 
     reg_file.write_text(json.dumps(entry, indent=2) + "\n", encoding="utf-8")
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Build and sync Theta plugin component archives.")
+    parser.add_argument(
+        "--only",
+        nargs="+",
+        choices=sorted(comp["id"] for comp in COMPONENTS),
+        help="Package only these component IDs.",
+    )
+    selected = set(parser.parse_args().only or [])
     DIST.mkdir(parents=True, exist_ok=True)
     if HUB_ROOT.exists():
         HUB_PACKAGES.mkdir(parents=True, exist_ok=True)
@@ -190,6 +205,8 @@ def main():
     print("=" * 70)
 
     for comp in COMPONENTS:
+        if selected and comp["id"] not in selected:
+            continue
         src = comp["src"]
         if not src.exists():
             print(f"⚠️ Skipping {comp['id']}: directory {src} not found")

@@ -1,0 +1,223 @@
+{
+  "id": "theta-validation-suite",
+  "name": "Theta Validation Suite",
+  "kind": "suite",
+  "version": "1.1.0",
+  "description": "Online-RL experiment and component conformance recipes for ThetaIDE Basics.",
+  "author": {
+    "name": "Theta-IDE Team"
+  },
+  "repository": "https://github.com/CameronEgb/theta-plugins",
+  "license": "MIT",
+  "tags": [
+    "suite",
+    "testing",
+    "conformance",
+    "validation"
+  ],
+  "dependencies": {
+    "components": [
+      "basic_suite"
+    ]
+  },
+  "paradigms": [
+    "online_rl"
+  ],
+  "config_paths": [
+    "in/config/experiment/theta_validation/_base.yaml",
+    "in/config/experiment/theta_validation/success/online_smoke.yaml",
+    "in/config/experiment/theta_validation/failure/missing_method.yaml",
+    "in/config/experiment/theta_validation/failure/missing_agent.yaml",
+    "in/config/experiment/theta_validation/failure/missing_model.yaml",
+    "in/config/experiment/theta_validation/failure/incompatible_cql.yaml",
+    "in/config/experiment/theta_validation/failure/incompatible_iql.yaml",
+    "in/config/experiment/theta_validation/failure/incompatible_td3_bc.yaml",
+    "in/config/experiment/theta_validation/failure/incompatible_bc.yaml",
+    "in/config/experiment/theta_validation/failure/unknown_agent.yaml",
+    "in/config/experiment/theta_validation/failure/checkpoint_conflict.yaml",
+    "in/config/experiment/theta_validation/failure/invalid_checkpoint_value.yaml",
+    "in/config/experiment/theta_validation/failure/malformed_telemetry_metrics.yaml"
+  ],
+  "test_suite": {
+    "format": "theta.test-suite/v1",
+    "components": [
+      {
+        "id": "gym_classic_control/cartpole",
+        "title": "CartPole live environment",
+        "description": "The Basic Suite environment must expose an online-RL CartPole environment.",
+        "config_path": "in/config/env/gym_classic_control/cartpole.yaml",
+        "required": {
+          "env_id": "CartPole-v1",
+          "compatible_paradigms": [
+            "online_rl"
+          ]
+        }
+      },
+      {
+        "id": "sb3/ppo",
+        "title": "SB3 PPO algorithm",
+        "description": "PPO must retain its runner entrypoint, algorithm identity, and online-RL capability declaration.",
+        "config_path": "in/config/agent/sb3/ppo.yaml",
+        "required": {
+          "entrypoint": "src/usr/algorithms/sb3-suite/sb3_runner.py",
+          "algorithm": "PPO",
+          "compatible_paradigms": [
+            "online_rl"
+          ]
+        }
+      },
+      {
+        "id": "d3rlpy/cql",
+        "title": "d3rlpy CQL algorithm",
+        "description": "CQL must retain its runner entrypoint, algorithm identity, and offline-RL capability declaration.",
+        "config_path": "in/config/agent/d3rlpy/cql.yaml",
+        "required": {
+          "entrypoint": "src/usr/algorithms/d3rlpy-suite/d3rlpy_runner.py",
+          "algorithm": "CQL",
+          "compatible_paradigms": [
+            "offline_rl"
+          ]
+        }
+      },
+      {
+        "id": "basics/dnn",
+        "title": "DNN model",
+        "description": "The Basic Suite DNN must expose its architecture configuration.",
+        "config_path": "in/config/model/basics/dnn.yaml",
+        "required": {
+          "architecture": "dnn"
+        }
+      },
+      {
+        "id": "thetalib/tabular_data",
+        "title": "Tabular data module",
+        "description": "The data-loader adapter must remain independently configurable from a dataset environment.",
+        "config_path": "in/config/data/thetalib/tabular_data.yaml",
+        "required": {
+          "data_module": "tabular_data",
+          "batch_size": 128
+        }
+      }
+    ],
+    "cases": [
+      {
+        "id": "online-smoke",
+        "title": "Online smoke recipe",
+        "description": "A minimal online-RL recipe using Basic Suite PPO, DNN, and CartPole must execute successfully.",
+        "experiment": "theta_validation/success/online_smoke",
+        "expectation": "runnable",
+        "execution": "run"
+      },
+      {
+        "id": "missing-method",
+        "title": "Missing method is blocked",
+        "description": "An online-RL experiment without any method must fail preflight.",
+        "experiment": "theta_validation/failure/missing_method",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "The online-RL paradigm requires methods.",
+        "expected_error": "requires 'methods'"
+      },
+      {
+        "id": "missing-agent",
+        "title": "Missing agent is blocked",
+        "description": "Every online-RL method must declare an agent harness.",
+        "experiment": "theta_validation/failure/missing_agent",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "Online RL requires an agent harness.",
+        "expected_error": "requires an agent harness"
+      },
+      {
+        "id": "missing-model",
+        "title": "Missing model is blocked",
+        "description": "Every online-RL method must declare a model architecture.",
+        "experiment": "theta_validation/failure/missing_model",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "A method without a model architecture must fail preflight.",
+        "expected_error": "missing required key 'model'"
+      },
+      {
+        "id": "incompatible-cql",
+        "title": "Offline CQL in online RL is blocked",
+        "description": "CQL is offline-only and must be rejected by an online-RL experiment.",
+        "experiment": "theta_validation/failure/incompatible_cql",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "CQL is compatible with offline RL only.",
+        "expected_error": "not allowed in paradigm 'online_rl'"
+      },
+      {
+        "id": "incompatible-iql",
+        "title": "Offline IQL in online RL is blocked",
+        "description": "IQL is offline-only and must be rejected by an online-RL experiment.",
+        "experiment": "theta_validation/failure/incompatible_iql",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "IQL is compatible with offline RL only.",
+        "expected_error": "not allowed in paradigm 'online_rl'"
+      },
+      {
+        "id": "incompatible-td3-bc",
+        "title": "Offline TD3+BC in online RL is blocked",
+        "description": "TD3+BC is offline-only and must be rejected by an online-RL experiment.",
+        "experiment": "theta_validation/failure/incompatible_td3_bc",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "TD3+BC is compatible with offline RL only.",
+        "expected_error": "not allowed in paradigm 'online_rl'"
+      },
+      {
+        "id": "incompatible-bc",
+        "title": "Offline behavior cloning in online RL is blocked",
+        "description": "Behavior cloning is offline-only and must be rejected by an online-RL experiment.",
+        "experiment": "theta_validation/failure/incompatible_bc",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "Behavior cloning is compatible with offline RL only.",
+        "expected_error": "not allowed in paradigm 'online_rl'"
+      },
+      {
+        "id": "unknown-agent",
+        "title": "Unknown agent is blocked",
+        "description": "A method that names an unavailable agent must fail preflight.",
+        "experiment": "theta_validation/failure/unknown_agent",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "Unknown agent names must not launch.",
+        "expected_error": "missing component"
+      },
+      {
+        "id": "checkpoint-conflict",
+        "title": "Conflicting checkpoint schedules are blocked",
+        "description": "An online-RL experiment cannot set both checkpoint schedule fields.",
+        "experiment": "theta_validation/failure/checkpoint_conflict",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "Only one checkpoint schedule can be configured.",
+        "expected_error": "Set either 'checkpoint_every_steps' or 'num_checkpoints', not both."
+      },
+      {
+        "id": "invalid-checkpoint-value",
+        "title": "Invalid checkpoint interval is blocked",
+        "description": "Checkpoint intervals must be positive whole numbers.",
+        "experiment": "theta_validation/failure/invalid_checkpoint_value",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "A zero transition interval is invalid.",
+        "expected_error": "must be a whole number of at least 1"
+      },
+      {
+        "id": "malformed-telemetry-metrics",
+        "title": "Malformed telemetry selection is blocked",
+        "description": "Telemetry metric selections must contain only non-empty strings.",
+        "experiment": "theta_validation/failure/malformed_telemetry_metrics",
+        "expectation": "blocked",
+        "execution": "preflight",
+        "blocked_reason": "Non-string telemetry selections are invalid.",
+        "expected_error": "telemetry.metrics' must be a list"
+      }
+    ]
+  }
+}

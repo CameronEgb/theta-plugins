@@ -1,0 +1,5 @@
+# @package _global_
+defaults:
+  - /experiment/theta_validation/_base@_global_
+
+# Online RL requires a method.
