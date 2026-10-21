@@ -1,7 +1,7 @@
 {
   "id": "sb3-suite",
   "name": "Stable-Baselines3 Suite",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "kind": "method",
   "description": "Standard reinforcement learning algorithms (PPO, DQN, A2C, SAC) powered by Stable-Baselines3.",
   "author": "DLR-RM & SB3 Contributors",
@@ -29,15 +29,6 @@
           "algorithm": {
             "type": "string"
           },
-          "engine": {
-            "type": "string",
-            "enum": [
-              "sb3",
-              "d3rlpy",
-              "cleanrl",
-              "custom"
-            ]
-          },
           "policy": {
             "type": "string",
             "enum": [
@@ -60,6 +51,9 @@
           },
           "vf_coef": {
             "type": "number"
+          },
+          "entrypoint": {
+            "type": "string"
           }
         }
       },
@@ -68,15 +62,6 @@
         "properties": {
           "algorithm": {
             "type": "string"
-          },
-          "engine": {
-            "type": "string",
-            "enum": [
-              "sb3",
-              "d3rlpy",
-              "cleanrl",
-              "custom"
-            ]
           },
           "policy": {
             "type": "string",
@@ -109,6 +94,9 @@
           },
           "exploration_fraction": {
             "type": "number"
+          },
+          "entrypoint": {
+            "type": "string"
           }
         }
       },
@@ -117,15 +105,6 @@
         "properties": {
           "algorithm": {
             "type": "string"
-          },
-          "engine": {
-            "type": "string",
-            "enum": [
-              "sb3",
-              "d3rlpy",
-              "cleanrl",
-              "custom"
-            ]
           },
           "policy": {
             "type": "string",
@@ -155,6 +134,9 @@
           },
           "clip_range": {
             "type": "number"
+          },
+          "entrypoint": {
+            "type": "string"
           }
         }
       },
@@ -163,15 +145,6 @@
         "properties": {
           "algorithm": {
             "type": "string"
-          },
-          "engine": {
-            "type": "string",
-            "enum": [
-              "sb3",
-              "d3rlpy",
-              "cleanrl",
-              "custom"
-            ]
           },
           "policy": {
             "type": "string",
@@ -200,6 +173,9 @@
             "type": "number"
           },
           "ent_coef": {
+            "type": "string"
+          },
+          "entrypoint": {
             "type": "string"
           }
         }

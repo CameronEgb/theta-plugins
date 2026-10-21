@@ -1,5 +1,6 @@
 name: d3rlpy/iql
-engine: d3rlpy
+compatible_paradigms: [offline_rl]
+entrypoint: src/usr/algorithms/d3rlpy-suite/d3rlpy_runner.py
 algorithm: IQL
 learning_rate: 3e-4
 batch_size: 256
